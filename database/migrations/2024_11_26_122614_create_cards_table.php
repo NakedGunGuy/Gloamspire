@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug');
             $table->longText('effect')->nullable();
             $table->longText('effect_raw')->nullable();
-            $table->string('flavor')->nullable();
+            $table->longText('flavor')->nullable();
             $table->string('cost_memory')->nullable();
             $table->string('cost_reserve')->nullable();
             $table->string('level')->nullable();
