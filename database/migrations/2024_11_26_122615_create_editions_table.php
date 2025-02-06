@@ -11,8 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
         Schema::create('editions', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
