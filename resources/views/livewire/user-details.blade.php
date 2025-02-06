@@ -12,7 +12,7 @@
         @endif
         <div class="flex items-center gap-4">
             <flux:heading size="xl" class="break-all">{{ $user->name }}</flux:heading>
-            <x-country-flag country-code="{{ $user->country ?? 'sl' }}" />
+            <x-country-flag :country-code="$user->country" />
         </div>
         <flux:spacer />
         <flux:button icon="chat-bubble-oval-left-ellipsis" href="discord://discordapp.com/users/{{ $user?->discord_id }}" target="_blank">Contact user</flux:button>

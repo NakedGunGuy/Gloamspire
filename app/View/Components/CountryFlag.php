@@ -15,9 +15,9 @@ class CountryFlag extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(string $countryCode)
+    public function __construct(?string $countryCode = 'sl')
     {
-        $this->countryCode = strtolower($countryCode);
+        $this->countryCode = strtolower($countryCode ?? 'sl');
     }
 
     /**
