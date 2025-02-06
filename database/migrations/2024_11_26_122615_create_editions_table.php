@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('illustrator')->nullable();
             $table->string('rarity')->nullable();
             $table->timestamp('last_update')->nullable();
-            $table->foreignId('set_id')->constrained('sets')->onDelete('cascade');
             $table->timestamps();
 
             $table->foreign('set_id')->references('id')->on('sets');
