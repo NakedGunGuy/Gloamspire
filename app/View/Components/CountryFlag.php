@@ -10,12 +10,12 @@ use Flux\Flux;
 
 class CountryFlag extends Component
 {
-    public string $countryCode;
+    public string $countryCode = 'sl';
 
     /**
      * Create a new component instance.
      */
-    public function __construct(string $countryCode = 'sl')
+    public function __construct(string $countryCode)
     {
         $this->countryCode = strtolower($countryCode);
     }
