@@ -23,15 +23,11 @@ return new class extends Migration
             $table->string('flavor')->nullable();
             $table->string('illustrator')->nullable();
             $table->string('rarity')->nullable();
-            $table->foreignId('set_id')->constrained('sets')->onDelete('cascade');
+            $table->foreignId('set_id');
             $table->timestamp('last_update')->nullable();
             $table->timestamps();
-
-            $table->foreign('set_id')->references('id')->on('sets');
-            $table->foreign('card_id')->references('id')->on('cards');
         });
 
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
