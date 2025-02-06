@@ -15,7 +15,7 @@
             <x-country-flag :country-code="$user->country" />
         </div>
         <flux:spacer />
-        <flux:button icon="chat-bubble-oval-left-ellipsis" href="discord://discordapp.com/users/{{ $user?->discord_id }}" target="_blank">Contact user</flux:button>
+        <flux:button icon="chat-bubble-oval-left-ellipsis" href="discord://discordapp.com/users/{{ $user?->discord_id }}">Contact user</flux:button>
     </flux:card>
 
         <!-- User Listings -->
