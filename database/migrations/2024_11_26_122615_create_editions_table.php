@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('flavor')->nullable();
             $table->string('illustrator')->nullable();
             $table->string('rarity')->nullable();
+            $table->foreignId('set_id')->constrained('sets')->onDelete('cascade');
             $table->timestamp('last_update')->nullable();
             $table->timestamps();
 
