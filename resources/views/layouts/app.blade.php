@@ -7,12 +7,9 @@
 
         <title>{{ config('app.name', 'Gloamspire') }}</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
+    
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/css/font.css', 'resources/js/app.js'])
         @fluxStyles
         @livewireStyles
 </head>
@@ -21,8 +18,7 @@
 <flux:sidebar sticky stashable class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
     <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-    <flux:brand href="/" logo="https://fluxui.dev/img/demo/logo.png" name="Gloamspire" class="px-2 dark:hidden" />
-    <flux:brand href="/" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Gloamspire" class="px-2 hidden dark:flex" />
+    <flux:brand href="/" logo="/assets/logo.svg" name="Gloamspire" class="px-2" />
 
     <!--<flux:input variant="filled" placeholder="Search..." icon="magnifying-glass" />-->
 
