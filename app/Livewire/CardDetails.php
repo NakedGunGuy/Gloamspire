@@ -37,7 +37,7 @@ class CardDetails extends Component
     public function addToWishlist($cardId)
     {
         if (auth()->check()) {
-            $this->validate();  // Use the validation
+            $this->validate(['card_count' => 'required|integer|min:1',]);  // Use the validation
 
             $wishlist = Wishlist::firstOrCreate(
                 [

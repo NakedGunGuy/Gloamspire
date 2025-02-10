@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="flex flex-col w-full gap-3">
-        <flux:card class="!p-4 flex justify-between items-center">
+        <flux:card class="!p-4 flex flex-col justify-between sm:items-center sm:flex-row gap-4">
             <flux:heading size="xl">{{ $card->name }}</flux:heading>
             <div>
             @foreach ($this->editions as $edition)
@@ -28,7 +28,7 @@
             @endforeach
             </div>
         </flux:card>
-        <div class="flex w-full gap-3">
+        <div class="flex w-full gap-3 flex-col xl:flex-row">
             <flux:card class="!p-4 flex flex-col gap-3">
                 <div class="overflow-hidden rounded-xl flex">
                     <img src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $card->currentEdition->slug }}.jpg" width="400px"/>
@@ -74,9 +74,9 @@
                     </div>
                 </flux:modal>
             </flux:card>
-            <flux:card class="!p-4 flex-grow">
+            <flux:card class="!p-4 flex-grow w-full flex">
                 @if ($salesData->isNotEmpty())
-                    <canvas id="salesChart"></canvas>
+                    <canvas class="!w-full flex-grow" id="salesChart"></canvas>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
@@ -130,7 +130,7 @@
             </flux:card>
         </div>
         <div class="flex">
-            <flux:card class="flex-grow">
+            <flux:card class="flex-grow w-full">
                 @if ($listings->isNotEmpty())
                 <flux:heading size="lg" >Current listings</flux:heading>
                 <flux:table :paginate="$listings">

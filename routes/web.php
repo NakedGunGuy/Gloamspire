@@ -23,6 +23,10 @@ Route::view('order', 'order.index')
     ->middleware(['auth'])
     ->name('order');
 
+Route::view('wishlist', 'wishlist.index')
+    ->middleware(['auth'])
+    ->name('wishlist');
+
 Route::get('/order/{order}', \App\Livewire\OrderDetails::class)->name('order.details');
 
 Route::get('/user/{userId}', \App\Livewire\UserDetails::class)->name('user.details');

@@ -84,6 +84,15 @@
         >
             Orders
         </flux:navlist.item>
+
+        <flux:navlist.item 
+            icon="heart" 
+            href="{{ route('wishlist') }}"
+            :current="request()->routeIs('wishlist')"
+            wire:navigate
+        >
+            Wishlist
+        </flux:navlist.item>
         @endauth
 
         <!--<flux:navlist.item icon="inbox" badge="12" href="#" current="{{ request()->segment(1) == 'dashboard' ? 'current' : '' }}">Inbox</flux:navlist.item>

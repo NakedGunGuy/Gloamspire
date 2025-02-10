@@ -18,7 +18,12 @@ class Wishlist extends Model
 
     public function edition()
     {
-        return $this->belongsTo(Edition::class);
+        return $this->belongsTo(Edition::class, 'edition_id');
+    }
+
+    public function card()
+    {
+        return $this->HasManyThrough(Card::class, Edition::class);
     }
 }
 
