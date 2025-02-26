@@ -35,7 +35,47 @@ class ListingFilter extends Component
 
     public $amount = 1;
 
-    protected $queryString = ['search', 'edition', 'class', 'type', 'subtype', 'perPage', 'viewType'];
+    protected $queryString = [
+        'search', 
+        'edition', 
+        'class', 
+        'type', 
+        'subtype', 
+        'perPage', 
+        'viewType',
+        'sortBy' => ['except' => 'name'],
+        'sortDirection' => ['except' => 'asc'],
+    ];
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedEdition()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedClass()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedType()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSubtype()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedPerPage()
+    {
+        $this->resetPage();
+    }
 
     public function sort($column)
     {
@@ -45,12 +85,14 @@ class ListingFilter extends Component
             $this->sortBy = $column;
             $this->sortDirection = 'asc';
         }
+
+        $this->resetPage();
+
     }
 
     public function getListingsProperty()
     {
         $query = Listing::query()->where('card_count', '>', 0);
-        //->where('user_id', !auth()->id());
 
         if ($this->search) {
             $query->whereHas('edition.card', function ($q) {

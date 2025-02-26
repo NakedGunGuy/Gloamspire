@@ -37,12 +37,53 @@ class CardFilter extends Component
     public $card_count = 1;
     public $price = 1;
 
-    protected $queryString = ['search', 'edition', 'class', 'type', 'subtype', 'perPage', 'viewType'];
+    protected $queryString = [
+        'search', 
+        'edition', 
+        'class', 
+        'type', 
+        'subtype', 
+        'perPage', 
+        'viewType',
+        'sortBy' => ['except' => 'name'],
+        'sortDirection' => ['except' => 'asc'],
+    ];
 
     protected $rules = [
         'card_count' => 'required|integer|min:1',
         'price' => 'required|numeric|min:0.01',
     ];
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedEdition()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedClass()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedType()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSubtype()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedPerPage()
+    {
+        $this->resetPage();
+    }
+
 
     public function sort($column)
     {
@@ -52,6 +93,8 @@ class CardFilter extends Component
             $this->sortBy = $column;
             $this->sortDirection = 'asc';
         }
+
+        $this->resetPage();
     }
 
     public function getCardsProperty()
