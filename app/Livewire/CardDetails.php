@@ -207,8 +207,6 @@ class CardDetails extends Component
             'date' => $sale->updated_at->format('Y-m-d'),
             'price' => $sale->price
         ])->toArray();
-
-        dd($this->salesData);
     }    
 
     public function render()
