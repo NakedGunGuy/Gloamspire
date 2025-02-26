@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="flex flex-col w-full gap-3">
-        <flux:card class="!p-4 flex flex-col justify-between sm:items-center sm:flex-row gap-4">
+        <flux:card class="p-4! flex flex-col justify-between sm:items-center sm:flex-row gap-4">
             <flux:heading size="xl">{{ $card->name }}</flux:heading>
             <div>
             @foreach ($this->editions as $edition)
@@ -29,7 +29,7 @@
             </div>
         </flux:card>
         <div class="flex w-full gap-3 flex-col xl:flex-row">
-            <flux:card class="!p-4 flex flex-col gap-3">
+            <flux:card class="p-4! flex flex-col gap-3">
                 <div class="overflow-hidden rounded-xl flex">
                     <img src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $card->currentEdition->slug }}.jpg" width="400px"/>
                 </div>
@@ -74,82 +74,64 @@
                     </div>
                 </flux:modal>
             </flux:card>
-            <flux:card class="!p-4 flex-grow w-full flex">
-                @if ($salesData->isNotEmpty())
-                    <canvas class="!w-full flex-grow" id="salesChart"></canvas>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const salesData = @json($salesData);
+            <flux:card class="p-4! grow w-full flex">
+                @if ($salesData)
+                    <flux:chart class="grid gap-6 w-full" wire:model="salesData">
+                        <flux:chart.summary class="flex gap-12">
+                            <div>
+                                <flux:subheading>Price</flux:subheading>
 
-                            const dates = salesData.map(sale => new Date(sale.created_at).toLocaleDateString());
-                            const prices = salesData.map(sale => sale.price);
+                                <flux:heading size="xl">
+                                    <flux:chart.summary.value field="price" :format="['style' => 'currency', 'currency' => 'EUR']" />
+                                </flux:heading>
+                            </div>
 
-                            const ctx = document.getElementById('salesChart').getContext('2d');
+                        </flux:chart.summary>
 
-                            new Chart(ctx, {
-                                type: 'line',
-                                data: {
-                                    labels: dates,
-                                    datasets: [{
-                                        label: 'Sales Price',
-                                        data: prices,
-                                        borderColor: 'rgb(194, 0, 65)',
-                                        backgroundColor: 'rgb(194, 0, 65)',
-                                        borderWidth: 2,
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            labels: {
-                                                color: 'white' // 🟢 Make legend text white
-                                            }
-                                        }
-                                    },
-                                    scales: {
-                                        x: {
-                                            ticks: {
-                                                color: 'white' // 🟢 Make x-axis labels white
-                                            }
-                                        },
-                                        y: {
-                                            ticks: {
-                                                color: 'white' // 🟢 Make y-axis labels white
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                        });
-                    </script>
+                        <flux:chart.viewport class="aspect-[3/1]">
+                            <flux:chart.svg>
+                                <flux:chart.line field="price" class="text-sky-500 dark:text-sky-400" curve="none" />
+
+                                <flux:chart.axis axis="x" field="date" :format=" ['day' => '2-digit', 'month' => '2-digit', 'year' => '2-digit', 'timeZone' => 'UTC']">
+                                    <flux:chart.axis.grid />
+                                    <flux:chart.axis.tick />
+                                    <flux:chart.axis.line />
+                                </flux:chart.axis>
+
+                                <flux:chart.axis axis="y">
+                                    <flux:chart.axis.tick />
+                                </flux:chart.axis>
+
+                                <flux:chart.cursor />
+                            </flux:chart.svg>
+                        </flux:chart.viewport>
+                    </flux:chart>
                 @else
                     <flux:heading>No completed sales data available.</flux:heading>
                 @endif
             </flux:card>
         </div>
         <div class="flex">
-            <flux:card class="flex-grow w-full">
+            <flux:card class="grow w-full">
                 @if ($listings->isNotEmpty())
                 <flux:heading size="lg" >Current listings</flux:heading>
                 <flux:table :paginate="$listings">
-                    <flux:columns>
-                        <flux:column>Price</flux:column>
-                        <flux:column>Count</flux:column>
-                        <flux:column>User</flux:column>
-                        <flux:column>Updated at</flux:column>
-                        <flux:column></flux:column>
-                    </flux:columns>
+                    <flux:table.columns>
+                        <flux:table.column>Price</flux:table.column>
+                        <flux:table.column>Count</flux:table.column>
+                        <flux:table.column>User</flux:table.column>
+                        <flux:table.column>Updated at</flux:table.column>
+                        <flux:table.column></flux:table.column>
+                    </flux:table.columns>
 
-                    <flux:rows>
+                    <flux:table.rows>
                         @foreach ($listings as $listing)
-                        <flux:row>
-                            <flux:cell variant="strong">{{ $listing->price }} €</flux:cell>
-                            <flux:cell>{{ $listing->card_count }}</flux:cell>
-                            <flux:cell>{{ $listing->user->name }}</flux:cell>
-                            <flux:cell>{{ $listing->updated_at->format('d.m.Y H:i:s') }}</flux:cell>
-                            <flux:cell>
+                        <flux:table.row>
+                            <flux:table.cell variant="strong">{{ $listing->price }} €</flux:table.cell>
+                            <flux:table.cell>{{ $listing->card_count }}</flux:table.cell>
+                            <flux:table.cell>{{ $listing->user->name }}</flux:table.cell>
+                            <flux:table.cell>{{ $listing->updated_at->format('d.m.Y H:i:s') }}</flux:table.cell>
+                            <flux:table.cell>
                             <flux:dropdown>
                                 <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
 
@@ -199,10 +181,10 @@
                                 </div>
                             </flux:modal>
                             @endif
-                            </flux:cell>
-                        </flux:row>
+                            </flux:table.cell>
+                        </flux:table.row>
                         @endforeach
-                    </flux:rows>
+                    </flux:table.rows>
                 </flux:table>
                 @else
                     <flux:heading>No listings found.</flux:heading>

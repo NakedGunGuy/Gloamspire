@@ -72,13 +72,13 @@ new class extends Component
             <flux:select variant="listbox" searchable wire:model="country" id="country" name="country" label="{{__('Country')}}" placeholder="{{ __('Select your country') }}">
                 @foreach ($countries as $country)
                     @if ($country == $this->country)
-                    <flux:option value="{{ $country['iso2'] }}" selected>
+                    <flux:select.option value="{{ $country['iso2'] }}" selected>
                         {{ $country['flag'] }} {{ $country['name'] }}
-                    </flux:option>
+                    </flux:select.option>
                     @else
-                    <flux:option value="{{ $country['iso2'] }}">
+                    <flux:select.option value="{{ $country['iso2'] }}">
                         {{ $country['flag'] }} {{ $country['name'] }}
-                    </flux:option>
+                    </flux:select.option>
                     @endif
                 @endforeach
             </flux:select>

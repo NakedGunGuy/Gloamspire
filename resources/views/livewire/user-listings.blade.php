@@ -1,23 +1,23 @@
 <div>
     @if ($userListings->count())
     <flux:table>
-        <flux:columns>
-            <flux:column>Name</flux:column>
-            <flux:column>Set</flux:column>
-            <flux:column>Collector Number</flux:column>
-            <flux:column>Rarity</flux:column>
-            <flux:column>Amount</flux:column>
-            <flux:column>Price</flux:column>
-            <flux:column>Actions</flux:column>
-        </flux:columns>
+        <flux:table.columns>
+            <flux:table.column>Name</flux:table.column>
+            <flux:table.column>Set</flux:table.column>
+            <flux:table.column>Collector Number</flux:table.column>
+            <flux:table.column>Rarity</flux:table.column>
+            <flux:table.column>Amount</flux:table.column>
+            <flux:table.column>Price</flux:table.column>
+            <flux:table.column>Actions</flux:table.column>
+        </flux:table.columns>
 
-        <flux:rows>
+        <flux:table.rows>
             @foreach ($userListings as $listing)
-                <flux:row 
+                <flux:table.row 
                     :key="$listing->id"
                     class="{{ $listing->user_id === auth()->id() ? 'opacity-50' : '' }}"
                 >
-                    <flux:cell class="flex items-center gap-3 font-bold">
+                    <flux:table.cell class="flex items-center gap-3 font-bold">
                         <flux:modal.trigger name="image-detail{{$listing->edition->id}}">
                             <flux:avatar size="xs" src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $listing->edition->slug }}.jpg" />
                         </flux:modal.trigger>
@@ -25,19 +25,19 @@
                         <flux:modal name="image-detail{{$listing->edition->id}}" class="md:w-96 space-y-6">
                             <img src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $listing->edition->slug }}.jpg">
                         </flux:modal>
-                    </flux:cell>
+                    </flux:table.cell>
 
-                    <flux:cell>{{ $listing->edition->set->prefix ?? 'N/A' }}</flux:cell>
-                    <flux:cell>{{ $listing->edition->collector_number ?? 'N/A' }}</flux:cell>
-                    <flux:cell><x-card-rarity :rarity="$listing->edition->rarity" /></flux:cell>
-                    <flux:cell>
+                    <flux:table.cell>{{ $listing->edition->set->prefix ?? 'N/A' }}</flux:table.cell>
+                    <flux:table.cell>{{ $listing->edition->collector_number ?? 'N/A' }}</flux:table.cell>
+                    <flux:table.cell><x-card-rarity :rarity="$listing->edition->rarity" /></flux:table.cell>
+                    <flux:table.cell>
                         {{ $listing->card_count ?? 'N/A' }}
                         @if($listing->user_id === auth()->id() && $listing->cart_count_sum)
                             <span class="opacity-50">+ {{ $listing->cart_count_sum }}</span>
                         @endif
-                    </flux:cell>
-                    <flux:cell>{{ $listing->price . ' €' ?? 'N/A' }}</flux:cell>
-                    <flux:cell>
+                    </flux:table.cell>
+                    <flux:table.cell>{{ $listing->price . ' €' ?? 'N/A' }}</flux:table.cell>
+                    <flux:table.cell>
                         <flux:dropdown>
                             <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
                             <flux:menu>
@@ -84,10 +84,10 @@
                                 </div>
                             </flux:modal>
                         @endif
-                    </flux:cell>
-                </flux:row>
+                    </flux:table.cell>
+                </flux:table.row>
             @endforeach
-        </flux:rows>
+        </flux:table.rows>
     </flux:table>
     @else
     <flux:heading class="mt-10">No listings :(</flux:heading>

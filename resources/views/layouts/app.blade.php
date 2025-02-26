@@ -10,7 +10,7 @@
     
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/css/font.css', 'resources/js/app.js'])
-        @fluxStyles
+        @fluxAppearance
         @livewireStyles
 </head>
 <body class="min-h-screen bg-white dark:bg-zinc-800 dark">
@@ -118,7 +118,7 @@
     @endauth
 </flux:sidebar>
 
-<flux:header class="!block bg-white lg:bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+<flux:header class="block! bg-white lg:bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
     <flux:navbar class="lg:hidden w-full">
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 

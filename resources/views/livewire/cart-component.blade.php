@@ -23,17 +23,17 @@
                 </flux:accordion.heading>
                 <flux:accordion.content>
                     <flux:table>
-                        <flux:columns>
-                            <flux:column class="w-9/12 min-w-[150px]">Name</flux:column>
-                            <flux:column class="w-1/12 min-w-[100px]">Amount</flux:column>
-                            <flux:column class="w-1/12 min-w-[100px]">Price</flux:column>
-                            <flux:column class="w-1/12 min-w-[50px]"></flux:column>
-                        </flux:columns>
+                        <flux:table.columns>
+                            <flux:table.column class="w-9/12 min-w-[150px]">Name</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Amount</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Price</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[50px]"></flux:table.column>
+                        </flux:table.columns>
 
-                        <flux:rows>
+                        <flux:table.rows>
                             @foreach($cartItems as $cartItem)
-                            <flux:row :key="$cartItem->id">
-                                <flux:cell class="flex items-center gap-3 font-bold">
+                            <flux:table.row :key="$cartItem->id">
+                                <flux:table.cell class="flex items-center gap-3 font-bold">
                                     <flux:modal.trigger name="image-detail{{$cartItem->listing->edition->id}}">
                                         <flux:avatar size="xs" src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $cartItem->listing->edition->slug }}.jpg" />
                                     </flux:modal.trigger>
@@ -41,10 +41,10 @@
                                     <flux:modal name="image-detail{{$cartItem->listing->edition->id}}" class="md:w-96 space-y-6">
                                         <img src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $cartItem->listing->edition->slug }}.jpg">
                                     </flux:modal>
-                                </flux:cell>
-                                <flux:cell variant="strong">{{ $cartItem->amount }}</flux:cell>
-                                <flux:cell variant="strong">{{ $cartItem->listing->price }}</flux:cell>
-                                <flux:cell>
+                                </flux:table.cell>
+                                <flux:table.cell variant="strong">{{ $cartItem->amount }}</flux:table.cell>
+                                <flux:table.cell variant="strong">{{ $cartItem->listing->price }}</flux:table.cell>
+                                <flux:table.cell>
                                 <flux:dropdown>
                                     <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
                                     <flux:menu>
@@ -68,10 +68,10 @@
                                         </flux:button>
                                     </div>
                                 </flux:modal>
-                                </flux:cell>
-                            </flux:row>
+                                </flux:table.cell>
+                            </flux:table.row>
                             @endforeach
-                        </flux:rows>
+                        </flux:table.rows>
                     </flux:table>
                 </flux:accordion.content>
             </flux:accordion.item>

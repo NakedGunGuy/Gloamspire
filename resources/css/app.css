@@ -1,14 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
 
-@layer base {
-    :root {
-        --color-accent: var(--color-rose-500);
-        --color-accent-content: var(--color-rose-500);
-        --color-accent-foreground: var(--color-white);
-    }
+@custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+    --color-accent: var(--color-rose-500);
+    --color-accent-content: var(--color-rose-500);
+    --color-accent-foreground: var(--color-white);
+}
+
+@layer theme {
     .dark {
         --color-accent: var(--color-rose-500);
         --color-accent-content: var(--color-rose-400);

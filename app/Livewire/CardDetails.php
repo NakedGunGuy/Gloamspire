@@ -19,6 +19,7 @@ class CardDetails extends Component
     public $card;
     public $editions;
     public $salesData;
+    public $data = [];
     public $selectedEditionId;
     public $editionPrefix;
     public $price;  // Add any other form input variables here
@@ -198,9 +199,14 @@ class CardDetails extends Component
                 $query->where('status', 'completed');
             })
             ->join('listings', 'order_items.listing_id', '=', 'listings.id')
-            ->select('listings.price', 'order_items.created_at')
-            ->orderBy('order_items.created_at', 'desc')
+            ->select('listings.price', 'order_items.updated_at')
+            ->orderBy('order_items.updated_at', 'desc')
             ->get();
+
+        $this->salesData = $this->salesData->map(fn($sale) => [
+            'date' => $sale->updated_at->format('Y-m-d'),
+            'price' => $sale->price
+        ])->toArray();
     }    
 
     public function render()

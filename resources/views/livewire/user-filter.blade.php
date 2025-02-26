@@ -16,28 +16,28 @@
                 class="min-w-[50px] max-w-[100px]"
             >
                 @foreach($perPageOptions as $option)
-                    <flux:option value="{{ $option }}">{{ $option }}</flux:option>
+                    <flux:select.option value="{{ $option }}">{{ $option }}</flux:select.option>
                 @endforeach
             </flux:select>
         </div>
     </flux:card>
 
     <flux:table :paginate="$users">
-        <flux:columns>
-            <!--<flux:column class="w-[20px]"><flux:checkbox.all /></flux:column>-->
-            <flux:column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:column>
-            <flux:column sortable :sorted="$sortBy === 'country'" :direction="$sortDirection" wire:click="sort('country')">Country</flux:column>
-        </flux:columns>
+        <flux:table.columns>
+            <!--<flux:table.column class="w-[20px]"><flux:checkbox.all /></flux:table.column>-->
+            <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:table.column>
+            <flux:table.column sortable :sorted="$sortBy === 'country'" :direction="$sortDirection" wire:click="sort('country')">Country</flux:table.column>
+        </flux:table.columns>
 
-        <flux:rows>
+        <flux:table.rows>
             @foreach($users as $user)
-                <flux:row :key="$user->id">
-                    <flux:cell class="flex items-center gap-3 font-bold"><flux:avatar size="xs" src="{{ $user->avatar }}" /><a href="{{ route('user.details', $user->id) }}">{{ $user->name }}</a></flux:cell>
-                    <flux:cell>
+                <flux:table.row :key="$user->id">
+                    <flux:table.cell class="flex items-center gap-3 font-bold"><flux:avatar size="xs" src="{{ $user->avatar }}" /><a href="{{ route('user.details', $user->id) }}">{{ $user->name }}</a></flux:table.cell>
+                    <flux:table.cell>
                         <x-country-flag :country-code="$user->country" />
-                    </flux:cell>
-                </flux:row>
+                    </flux:table.cell>
+                </flux:table.row>
             @endforeach
-        </flux:rows>
+        </flux:table.rows>
     </flux:table>
 </div>

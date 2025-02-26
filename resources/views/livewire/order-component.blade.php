@@ -14,13 +14,13 @@
 
             // Define status-specific button styles
             $statusColors = [
-                'pending' => '!bg-orange-500',
-                'sent' => '!bg-blue-500',
-                'completed' => '!bg-green-500',
-                'canceled' => '!bg-red-500',
+                'pending' => 'bg-orange-500!',
+                'sent' => 'bg-blue-500!',
+                'completed' => 'bg-green-500!',
+                'canceled' => 'bg-red-500!',
             ];
 
-            $statusColor = $statusColors[$status] ?? '!bg-gray-500'; // Default color
+            $statusColor = $statusColors[$status] ?? 'bg-gray-500!'; // Default color
 
             $canMarkAsSent = $orderGroup->first()->order_items->first()?->listing->user_id === auth()->id() && $status === 'pending';
             $canMarkAsCompleted = $user->id === auth()->id() && $status === 'sent';
@@ -48,16 +48,16 @@
                 </flux:accordion.heading>
                 <flux:accordion.content>
                     <flux:table>
-                        <flux:columns>
-                            <flux:column class="w-9/12 min-w-[150px]">Name</flux:column>
-                            <flux:column class="w-1/12 min-w-[100px]">Amount</flux:column>
-                            <flux:column class="w-1/12 min-w-[100px]">Price</flux:column>
-                        </flux:columns>
+                        <flux:table.columns>
+                            <flux:table.column class="w-9/12 min-w-[150px]">Name</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Amount</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Price</flux:table.column>
+                        </flux:table.columns>
 
-                        <flux:rows>
+                        <flux:table.rows>
                             @foreach($orderGroup->first()->order_items as $orderItem)
-                            <flux:row :key="$orderItem->id">
-                                <flux:cell class="flex items-center gap-3 font-bold">
+                            <flux:table.row :key="$orderItem->id">
+                                <flux:table.cell class="flex items-center gap-3 font-bold">
                                     <flux:modal.trigger name="image-detail{{$orderItem->listing->edition->id}}">
                                         <flux:avatar size="xs" src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $orderItem->listing->edition->slug }}.jpg" />
                                     </flux:modal.trigger>
@@ -65,12 +65,12 @@
                                     <flux:modal name="image-detail{{$orderItem->listing->edition->id}}" class="md:w-96 space-y-6">
                                         <img src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $orderItem->listing->edition->slug }}.jpg">
                                     </flux:modal>
-                                </flux:cell>
-                                <flux:cell variant="strong">{{ $orderItem->amount }}</flux:cell>
-                                <flux:cell variant="strong">{{ $orderItem->listing->price }}</flux:cell>
-                            </flux:row>
+                                </flux:table.cell>
+                                <flux:table.cell variant="strong">{{ $orderItem->amount }}</flux:table.cell>
+                                <flux:table.cell variant="strong">{{ $orderItem->listing->price }}</flux:table.cell>
+                            </flux:table.row>
                             @endforeach
-                        </flux:rows>
+                        </flux:table.rows>
                     </flux:table>
                 </flux:accordion.content>
             </flux:accordion.item>

@@ -17,7 +17,7 @@
                 clear="close"
             >
                 @foreach($sets as $set)
-                    <flux:option value="{{ $set->id }}">{{ $set->name }}</flux:option>
+                    <flux:select.option value="{{ $set->id }}">{{ $set->name }}</flux:select.option>
                 @endforeach
             </flux:select>
 
@@ -30,7 +30,7 @@
                 clear="close"
             >
                 @foreach($classes as $class)
-                    <flux:option value="{{ $class->id }}">{{ $class->value }}</flux:option>
+                    <flux:select.option value="{{ $class->id }}">{{ $class->value }}</flux:select.option>
                 @endforeach
             </flux:select>
 
@@ -43,7 +43,7 @@
                 clear="close"
             >
                 @foreach($types as $type)
-                    <flux:option value="{{ $type->id }}">{{ $type->value }}</flux:option>
+                    <flux:select.option value="{{ $type->id }}">{{ $type->value }}</flux:select.option>
                 @endforeach
             </flux:select>
 
@@ -56,7 +56,7 @@
                 clear="close" 
             >
                 @foreach($subtypes as $subtype)
-                    <flux:option value="{{ $subtype->id }}">{{ $subtype->value }}</flux:option>
+                    <flux:select.option value="{{ $subtype->id }}">{{ $subtype->value }}</flux:select.option>
                 @endforeach
             </flux:select>
         </div>
@@ -68,7 +68,7 @@
                 class="min-w-[50px] max-w-[100px]"
             >
                 @foreach($perPageOptions as $option)
-                    <flux:option value="{{ $option }}">{{ $option }}</flux:option>
+                    <flux:select.option value="{{ $option }}">{{ $option }}</flux:select.option>
                 @endforeach
             </flux:select>
 
@@ -85,27 +85,27 @@
     <!--<flux:checkbox.group>-->
         @if($viewType === 'list' && $listings->count())
         <flux:table :paginate="$listings">
-            <flux:columns>
-                <!--<flux:column class="w-[20px]"><flux:checkbox.all /></flux:column>-->
-                <flux:column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:column>
-                <flux:column sortable :sorted="$sortBy === 'set_prefix'" :direction="$sortDirection" wire:click="sort('set_prefix')">Set</flux:column>
-                <flux:column sortable :sorted="$sortBy === 'collector_number'" :direction="$sortDirection" wire:click="sort('collector_number')">Collector Number</flux:column>
-                <flux:column sortable :sorted="$sortBy === 'rarity'" :direction="$sortDirection" wire:click="sort('rarity')">Rarity</flux:column>
-                <flux:column sortable :sorted="$sortBy === 'user'" :direction="$sortDirection" wire:click="sort('user')">User</flux:column>
-                <flux:column sortable :sorted="$sortBy === 'country'" :direction="$sortDirection" wire:click="sort('country')">Country</flux:column>
-                <flux:column sortable :sorted="$sortBy === 'card_count'" :direction="$sortDirection" wire:click="sort('card_count')">Amount</flux:column>
-                <flux:column sortable :sorted="$sortBy === 'price'" :direction="$sortDirection" wire:click="sort('price')">Price</flux:column>
-                <flux:columns></flux:column>
-            </flux:columns>
+            <flux:table.columns>
+                <!--<flux:table.column class="w-[20px]"><flux:checkbox.all /></flux:table.column>-->
+                <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'set_prefix'" :direction="$sortDirection" wire:click="sort('set_prefix')">Set</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'collector_number'" :direction="$sortDirection" wire:click="sort('collector_number')">Collector Number</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'rarity'" :direction="$sortDirection" wire:click="sort('rarity')">Rarity</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'user'" :direction="$sortDirection" wire:click="sort('user')">User</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'country'" :direction="$sortDirection" wire:click="sort('country')">Country</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'card_count'" :direction="$sortDirection" wire:click="sort('card_count')">Amount</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'price'" :direction="$sortDirection" wire:click="sort('price')">Price</flux:table.column>
+                <flux:table.columns></flux:table.column>
+            </flux:table.columns>
 
-            <flux:rows>
+            <flux:table.rows>
                 @foreach($listings as $listing)
-                    <flux:row 
+                    <flux:table.row 
                         :key="$listing->id"
                         class="{{ $listing->user_id === auth()->id() ? 'opacity-50' : '' }}"
                     >
-                        <!--<flux:cell class="w-[20px]"><flux:checkbox /></flux:cell>-->
-                        <flux:cell class="flex items-center gap-3 font-bold">
+                        <!--<flux:table.cell class="w-[20px]"><flux:checkbox /></flux:table.cell>-->
+                        <flux:table.cell class="flex items-center gap-3 font-bold">
                             <flux:modal.trigger name="image-detail{{$listing->edition->id}}">
                                 <flux:avatar size="xs" src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $listing->edition->slug }}.jpg" />
                             </flux:modal.trigger>
@@ -113,23 +113,23 @@
                             <flux:modal name="image-detail{{$listing->edition->id}}" class="md:w-96 space-y-6">
                                 <img src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $listing->edition->slug }}.jpg">
                             </flux:modal>
-                        </flux:cell>
+                        </flux:table.cell>
 
-                        <flux:cell>{{ $listing->edition->set->prefix ?? 'N/A' }}</flux:cell>
-                        <flux:cell>{{ $listing->edition->collector_number ?? 'N/A' }}</flux:cell>
-                        <flux:cell><x-card-rarity :rarity="$listing->edition->rarity" /></flux:cell>
+                        <flux:table.cell>{{ $listing->edition->set->prefix ?? 'N/A' }}</flux:table.cell>
+                        <flux:table.cell>{{ $listing->edition->collector_number ?? 'N/A' }}</flux:table.cell>
+                        <flux:table.cell><x-card-rarity :rarity="$listing->edition->rarity" /></flux:table.cell>
 
-                        <flux:cell>{{ $listing->user->name ?? 'N/A' }}</flux:cell>
-                        <flux:cell>
+                        <flux:table.cell>{{ $listing->user->name ?? 'N/A' }}</flux:table.cell>
+                        <flux:table.cell>
                             <x-country-flag :country-code="$listing->user->country" />
-                        </flux:cell>
-                        <flux:cell>{{ $listing->card_count ?? 'N/A' }}
+                        </flux:table.cell>
+                        <flux:table.cell>{{ $listing->card_count ?? 'N/A' }}
                             @if($listing->user_id === auth()->id() && $listing->cart_count_sum)
                             <span class="opacity-50">+ {{ $listing->cart_count_sum}}</span>
                             @endif
-                        </flux:cell>
-                        <flux:cell>{{ $listing->price . ' €' ?? 'N/A' }}</flux:cell>
-                        <flux:cell>
+                        </flux:table.cell>
+                        <flux:table.cell>{{ $listing->price . ' €' ?? 'N/A' }}</flux:table.cell>
+                        <flux:table.cell>
                             <flux:dropdown>
                                 <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
 
@@ -179,16 +179,16 @@
                                 </div>
                             </flux:modal>
                             @endif
-                        </flux:cell>
-                    </flux:row>
+                        </flux:table.cell>
+                    </flux:table.row>
                 @endforeach
-            </flux:rows>
+            </flux:table.rows>
         </flux:table>
         @elseif($viewType === 'box')
         <flux:table :paginate="$listings">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 my-7">
                 @foreach($listings as $listing)
-                    <flux:card class="!p-4 !pt-2 flex flex-col items-center">
+                    <flux:card class="p-4! pt-2! flex flex-col items-center">
                         <flux:heading size="lg" class="mb-2">{{ $listing->edition->card->name }}</flux:heading>
                         <div class="overflow-hidden rounded-xl flex">
                             <flux:modal.trigger name="image-detail-{{$listing->edition->id}}">
@@ -207,8 +207,8 @@
                             <flux:separator vertical />
                             <flux:heading><x-card-rarity :rarity="$listing->edition->rarity" /></flux:heading>
                         </div>
-                        <div class="!w-full mt-2">
-                            <flux:card class="flex gap-2 !p-2 justify-center">
+                        <div class="w-full! mt-2">
+                            <flux:card class="flex gap-2 p-2! justify-center">
                                 <flux:heading>{{ $listing->user->name ?? 'N/A' }}</flux:heading>
                                 <flux:separator vertical />
                                 <x-country-flag :country-code="$listing->user->country" />
