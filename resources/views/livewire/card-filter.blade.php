@@ -211,6 +211,8 @@
                                     <flux:input name="price" type="number" placeholder="Price" min="0.00" max="100000.00" step="0.01" wire:model="price"/>
                                 </flux:input.group>
 
+                                <flux:checkbox wire:model="is_foil" label="Foil" />
+
                                 <div class="flex">
                                     <flux:spacer />
 
@@ -223,6 +225,8 @@
                                 </div>
 
                                 <flux:input name="card_count" type="number" placeholder="Amount" wire:model="card_count" />
+
+                                <flux:checkbox wire:model="is_foil" label="Foil" />
 
                                 <div class="flex">
                                     <flux:spacer />
