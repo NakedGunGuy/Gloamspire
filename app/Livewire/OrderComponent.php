@@ -17,33 +17,26 @@ class OrderComponent extends Component
             return;
         }
 
-        $seller = $order->order_items->first()->listing->user;
-        $buyer = $order->user;
-        $authUser = auth()->user();
-
         if (
             $newStatus === 'sent' &&
-            $seller->id === $authUser->id &&
+            $order->order_items->first()->listing->user_id === auth()->id() &&
             $order->status === 'pending'
         ) {
             $order->status = 'sent';
-            $buyer->notify(new OrderStatusChanged($order, 'sent')); // Notify Buyer
         } elseif (
             $newStatus === 'completed' &&
-            $buyer->id === $authUser->id &&
+            $order->user_id === auth()->id() &&
             $order->status === 'sent'
         ) {
             $order->status = 'completed';
-            $seller->notify(new OrderStatusChanged($order, 'completed')); // Notify Seller
         } elseif (
             $newStatus === 'canceled' &&
-            $seller->id === $authUser->id &&
+            $order->order_items->first()->listing->user_id === auth()->id() &&
             in_array($order->status, ['pending', 'sent'])
         ) {
             $order->status = 'canceled';
-            $buyer->notify(new OrderStatusChanged($order, 'canceled')); // Notify Buyer
 
-            // Return quantity to listing
+            // Return the quantity of items to the listing
             foreach ($order->order_items as $item) {
                 $item->listing->increment('count', $item->amount);
             }
