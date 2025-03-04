@@ -32,6 +32,7 @@ class ListingFilter extends Component
     public $subtype = [];
     public $perPageOptions = [10, 20, 50, 100];
     public $perPage = 10;
+    public $isFoil = null;
 
     public $amount = 1;
 
@@ -45,7 +46,13 @@ class ListingFilter extends Component
         'viewType',
         'sortBy' => ['except' => 'name'],
         'sortDirection' => ['except' => 'asc'],
+        'isFoil'
     ];
+
+    public function updatedIsFoil()
+    {
+        $this->resetPage();
+    }
 
     public function updatedSearch()
     {
@@ -122,6 +129,10 @@ class ListingFilter extends Component
             $query->whereHas('edition.card.subtypes', function ($q) {
                 $q->whereIn('subtypes.id', $this->subtype);
             });
+        }
+
+        if ($this->isFoil !== null) {
+            $query->where('is_foil', $this->isFoil);
         }
 
         if ($this->sortBy === 'set_prefix') {

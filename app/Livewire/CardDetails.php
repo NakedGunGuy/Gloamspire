@@ -24,7 +24,9 @@ class CardDetails extends Component
     public $editionPrefix;
     public $price;  // Add any other form input variables here
     public $card_count = 1;  // Default card count
-    public $amount;
+    public $amount;    
+    public $isFoil;
+
     
     use WithPagination;
 
@@ -44,6 +46,7 @@ class CardDetails extends Component
                 [
                     'user_id' => auth()->id(),
                     'edition_id' => $cardId,
+                    'is_foil' => $this->isFoil,
                 ],
                 [
                     'card_count' => $this->card_count,
@@ -79,6 +82,7 @@ class CardDetails extends Component
                     'user_id' => auth()->id(),
                     'edition_id' => $cardId,
                     'price' => $this->price,
+                    'is_foil' => $this->isFoil,
                 ],
                 [
                     'card_count' => $this->card_count,

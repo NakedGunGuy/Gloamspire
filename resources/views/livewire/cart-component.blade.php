@@ -25,6 +25,10 @@
                     <flux:table>
                         <flux:table.columns>
                             <flux:table.column class="w-9/12 min-w-[150px]">Name</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Set</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Collector Number</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Rarity</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Foil</flux:table.column>
                             <flux:table.column class="w-1/12 min-w-[100px]">Amount</flux:table.column>
                             <flux:table.column class="w-1/12 min-w-[100px]">Price</flux:table.column>
                             <flux:table.column class="w-1/12 min-w-[50px]"></flux:table.column>
@@ -42,6 +46,10 @@
                                         <img src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $cartItem->listing->edition->slug }}.jpg">
                                     </flux:modal>
                                 </flux:table.cell>
+                                <flux:table.cell>{{ $cartItem->listing->edition->set->prefix ?? 'N/A' }}</flux:table.cell>
+                                <flux:table.cell>{{ $cartItem->listing->edition->collector_number ?? 'N/A' }}</flux:table.cell>
+                                <flux:table.cell><x-card-rarity :rarity="$cartItem->listing->edition->rarity" /></flux:table.cell>
+                                <flux:table.cell><x-card-foil :is_foil="$cartItem->listing->is_foil" /></flux:table.cell>
                                 <flux:table.cell variant="strong">{{ $cartItem->amount }}</flux:table.cell>
                                 <flux:table.cell variant="strong">{{ $cartItem->listing->price }}</flux:table.cell>
                                 <flux:table.cell>

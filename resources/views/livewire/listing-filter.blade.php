@@ -59,6 +59,8 @@
                     <flux:select.option value="{{ $subtype->id }}">{{ $subtype->value }}</flux:select.option>
                 @endforeach
             </flux:select>
+
+            <flux:checkbox wire:model.live="isFoil" label="Foil" />
         </div>
         <div class="flex flex-wrap justify-end gap-2 w-full md:w-fit md:gap-4">
             <flux:select 
@@ -118,7 +120,7 @@
                         <flux:table.cell>{{ $listing->edition->set->prefix ?? 'N/A' }}</flux:table.cell>
                         <flux:table.cell>{{ $listing->edition->collector_number ?? 'N/A' }}</flux:table.cell>
                         <flux:table.cell><x-card-rarity :rarity="$listing->edition->rarity" /></flux:table.cell>
-
+                        <flux:table.cell><x-card-foil :is_foil="$listing->is_foil" /></flux:table.cell>
                         <flux:table.cell>{{ $listing->user->name ?? 'N/A' }}</flux:table.cell>
                         <flux:table.cell>
                             <x-country-flag :country-code="$listing->user->country" />

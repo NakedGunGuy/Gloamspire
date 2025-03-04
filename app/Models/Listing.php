@@ -11,7 +11,7 @@ class Listing extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'edition_id', 'card_count', 'price'];
+    protected $fillable = ['user_id', 'edition_id', 'card_count', 'price', 'is_foil'];
 
     public function user()
     {

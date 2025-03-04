@@ -36,6 +36,7 @@ class CardFilter extends Component
 
     public $card_count = 1;
     public $price = 1;
+    public $is_foil = false;
 
     protected $queryString = [
         'search', 
@@ -174,6 +175,7 @@ class CardFilter extends Component
                 [
                     'user_id' => auth()->id(),
                     'edition_id' => $cardId,
+                    'is_foil' => $this->is_foil,
                 ],
                 [
                     'card_count' => $this->card_count,
@@ -203,6 +205,7 @@ class CardFilter extends Component
                     'user_id' => auth()->id(),
                     'edition_id' => $cardId,
                     'price' => $this->price,
+                    'is_foil' => $this->is_foil,
                 ],
                 [
                     'card_count' => $this->card_count,

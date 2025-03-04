@@ -50,6 +50,10 @@
                     <flux:table>
                         <flux:table.columns>
                             <flux:table.column class="w-9/12 min-w-[150px]">Name</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Set</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Collector Number</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Rarity</flux:table.column>
+                            <flux:table.column class="w-1/12 min-w-[100px]">Foil</flux:table.column>
                             <flux:table.column class="w-1/12 min-w-[100px]">Amount</flux:table.column>
                             <flux:table.column class="w-1/12 min-w-[100px]">Price</flux:table.column>
                         </flux:table.columns>
@@ -66,6 +70,10 @@
                                         <img src="https://ga-index-public.s3.us-west-2.amazonaws.com/cards/{{ $orderItem->listing->edition->slug }}.jpg">
                                     </flux:modal>
                                 </flux:table.cell>
+                                <flux:table.cell>{{ $orderItem->listing->edition->set->prefix ?? 'N/A' }}</flux:table.cell>
+                                <flux:table.cell>{{ $orderItem->listing->edition->collector_number ?? 'N/A' }}</flux:table.cell>
+                                <flux:table.cell><x-card-rarity :rarity="$orderItem->listing->edition->rarity" /></flux:table.cell>
+                                <flux:table.cell><x-card-foil :is_foil="$orderItem->listing->is_foil" /></flux:table.cell>
                                 <flux:table.cell variant="strong">{{ $orderItem->amount }}</flux:table.cell>
                                 <flux:table.cell variant="strong">{{ $orderItem->listing->price }}</flux:table.cell>
                             </flux:table.row>

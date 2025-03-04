@@ -59,6 +59,9 @@
                     <flux:select.option value="{{ $subtype->id }}">{{ $subtype->value }}</flux:select.option>
                 @endforeach
             </flux:select>
+
+            <flux:checkbox wire:model.live="isFoil" label="Foil" />
+
         </div>
         <div class="flex flex-wrap justify-end gap-2 w-full md:w-fit md:gap-4">
             <flux:select 
@@ -91,8 +94,7 @@
                 <flux:table.column sortable :sorted="$sortBy === 'set_prefix'" :direction="$sortDirection" wire:click="sort('set_prefix')">Set</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'collector_number'" :direction="$sortDirection" wire:click="sort('collector_number')">Collector Number</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'rarity'" :direction="$sortDirection" wire:click="sort('rarity')">Rarity</flux:table.column>
-                <flux:table.column sortable :sorted="$sortBy === 'user'" :direction="$sortDirection" wire:click="sort('user')">User</flux:table.column>
-                <flux:table.column sortable :sorted="$sortBy === 'country'" :direction="$sortDirection" wire:click="sort('country')">Country</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'is_foil'" :direction="$sortDirection" wire:click="sort('is_foil')">Foil</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'card_count'" :direction="$sortDirection" wire:click="sort('card_count')">Amount</flux:table.column>
                 <flux:table.columns></flux:table.column>
             </flux:table.columns>
@@ -101,7 +103,6 @@
                 @foreach($wishlists as $wishlist)
                     <flux:table.row 
                         :key="$wishlist->id"
-                        class="{{ $wishlist->user_id === auth()->id() ? 'opacity-50' : '' }}"
                     >
                         <!--<flux:table.cell class="w-[20px]"><flux:checkbox /></flux:table.cell>-->
                         <flux:table.cell class="flex items-center gap-3 font-bold">
@@ -116,16 +117,9 @@
 
                         <flux:table.cell>{{ $wishlist->edition->set->prefix ?? 'N/A' }}</flux:table.cell>
                         <flux:table.cell>{{ $wishlist->edition->collector_number ?? 'N/A' }}</flux:table.cell>
-                        <flux:table.cell>{{ $wishlist->edition->rarity ?? 'N/A' }}</flux:table.cell>
-                        <flux:table.cell>{{ $wishlist->user->name ?? 'N/A' }}</flux:table.cell>
-                        <flux:table.cell>
-                            <x-country-flag :country-code="$wishlist->user->country" />
-                        </flux:table.cell>
-                        <flux:table.cell>{{ $wishlist->card_count ?? 'N/A' }}
-                            @if($wishlist->user_id === auth()->id() && $wishlist->cart_count_sum)
-                            <span class="opacity-50">+ {{ $wishlist->cart_count_sum}}</span>
-                            @endif
-                        </flux:table.cell>
+                        <flux:table.cell><x-card-rarity :rarity="$wishlist->edition->rarity" /></flux:table.cell>
+                        <flux:table.cell><x-card-foil :is_foil="$wishlist->is_foil" /></flux:table.cell>
+                        <flux:table.cell>{{ $wishlist->card_count ?? 'N/A' }}</flux:table.cell>
                         <flux:table.cell>
                             <flux:dropdown>
                                 <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
@@ -205,20 +199,12 @@
                             <flux:heading><x-card-rarity :rarity="$wishlist->edition->rarity" /></flux:heading>
                         </div>
                         <div class="w-full! mt-2">
-                            <flux:card class="flex gap-2 p-2! justify-center">
-                                <flux:heading>{{ $wishlist->user->name ?? 'N/A' }}</flux:heading>
-                                <flux:separator vertical />
-                                <x-country-flag :country-code="$wishlist->user->country" />
-                            </flux:card>
                             <div class="mt-2">
                                 <flux:button.group class="w-full">
                                     <flux:button class="pointer-events-none w-full">
                                         <flux:heading>Count</flux:heading>
                                         <flux:separator vertical class="my-1" />
                                         <flux:heading>{{ $wishlist->card_count ?? 'N/A' }}</flux:heading>
-                                        @if($wishlist->user_id === auth()->id() && $wishlist->cart_count_sum)
-                                        <span class="opacity-50">+ {{ $wishlist->cart_count_sum}}</span>
-                                        @endif
                                     </flux:button>
                                     <flux:dropdown class="w-full">
                                         <flux:button variant="primary" icon="ellipsis-horizontal" class="w-full"></flux:button>

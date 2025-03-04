@@ -32,10 +32,57 @@ class WishlistComponent extends Component
     public $subtype = [];
     public $perPageOptions = [10, 20, 50, 100];
     public $perPage = 10;
+    public $isFoil = null;
 
     public $amount = 1;
 
-    protected $queryString = ['search', 'edition', 'class', 'type', 'subtype', 'perPage', 'viewType'];
+    protected $queryString = [
+        'search',
+        'edition',
+        'class',
+        'type',
+        'subtype',
+        'perPage',
+        'viewType',        
+        'sortBy' => ['except' => 'name'],
+        'sortDirection' => ['except' => 'asc'],
+        'isFoil'
+    ];
+
+    public function updatedIsFoil()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedEdition()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedClass()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedType()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSubtype()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedPerPage()
+    {
+        $this->resetPage();
+    }
 
     public function sort($column)
     {
@@ -82,6 +129,10 @@ class WishlistComponent extends Component
             });
         }
 
+        if ($this->isFoil !== null) {
+            $query->where('is_foil', $this->isFoil);
+        }
+
         if ($this->sortBy === 'set_prefix') {
             $query->join('editions', 'wishlists.edition_id', '=', 'editions.id')
                 ->join('sets', 'editions.set_id', '=', 'sets.id')
@@ -100,14 +151,6 @@ class WishlistComponent extends Component
             $query->join('editions', 'wishlists.edition_id', '=', 'editions.id')
                 ->select('wishlists.*', 'editions.rarity as rarity')
                 ->orderBy('rarity', $this->sortDirection);
-        } elseif ($this->sortBy === 'user') {
-            $query->join('users', 'wishlists.user_id', '=', 'users.id')
-                ->select('wishlists.*', 'users.name as name')
-                ->orderBy('name', $this->sortDirection);
-        } elseif ($this->sortBy === 'country') {
-            $query->join('users', 'wishlists.user_id', '=', 'users.id')
-                ->select('wishlists.*', 'users.country as country')
-                ->orderBy('country', $this->sortDirection);
         } else {
             $query->orderBy($this->sortBy, $this->sortDirection);
         }
