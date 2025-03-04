@@ -7,7 +7,7 @@
         <div>
             <flux:heading size="lg">Import cards from xls</flux:heading>
             <flux:subheading>Make sure your file contains these headers in the <b>FIRST ROW:</b></flux:subheading>
-            <flux:subheading class="mt-2">[Set Prefix, Collector Number, Amount, Price]</flux:subheading>
+            <flux:subheading class="mt-2">[Set Prefix, Collector Number, Amount, Foil (0/1), Price]</flux:subheading>
         </div>
 
         <flux:input type="file" wire:model="file" />

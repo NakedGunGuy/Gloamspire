@@ -21,20 +21,35 @@ class ListingsImport extends StringValueBinder implements ToModel, WithHeadingRo
 
     public function model(array $row)
     {
+
+        dd($row['set_refix']);
+        if (empty($row['set_refix'])) {
+            Flux::toast(variant: 'danger', text: "No row with header Set prefix");
+            return null;
+        }
+
         $collectorNumber = str_pad((string) $row['collector_number'], 3, '0', STR_PAD_LEFT);
 
         $edition = Edition::whereHas('set', function ($query) use ($row) {
             $query->where('prefix', $row['set_prefix']);
         })->where('collector_number', $collectorNumber)->first();
 
+
         if (!$edition) {
             Flux::toast(variant: 'danger', text: "Edition not found for Set Prefix:" . $row['set_prefix'] . ", Collector Number: " . $collectorNumber . "!");
             return null;
         }
 
+        $foil = false;
+
+        if ($row['foil'] == 1) {
+            $foil = true;
+        }
+
         $listing = Listing::where('user_id', $this->userId)
             ->where('edition_id', $edition->id)
             ->where('price', (float) $row['price'])
+            ->where('is_foil', $foil)
             ->first();
 
         if ($listing) {
@@ -45,6 +60,7 @@ class ListingsImport extends StringValueBinder implements ToModel, WithHeadingRo
                 'user_id' => $this->userId,
                 'edition_id' => $edition->id,
                 'card_count' => (int) $row['amount'],
+                'is_foil' => (int) $foil,
                 'price' => (float) $row['price'],
             ]);
         }
