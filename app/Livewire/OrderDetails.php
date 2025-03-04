@@ -40,7 +40,7 @@ class OrderDetails extends Component
 
             // Return the quantity of items to the listing
             foreach ($this->order->order_items as $item) {
-                $item->listing->increment('count', $item->amount);
+                $item->listing->increment('card_count', $item->amount);
             }
         } else {
             session()->flash('error', 'You are not authorized to change the status.');
