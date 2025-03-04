@@ -93,6 +93,7 @@
                 <flux:table.column sortable :sorted="$sortBy === 'set_prefix'" :direction="$sortDirection" wire:click="sort('set_prefix')">Set</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'collector_number'" :direction="$sortDirection" wire:click="sort('collector_number')">Collector Number</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'rarity'" :direction="$sortDirection" wire:click="sort('rarity')">Rarity</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'is_foil'" :direction="$sortDirection" wire:click="sort('is_foil')">Foil</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'user'" :direction="$sortDirection" wire:click="sort('user')">User</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'country'" :direction="$sortDirection" wire:click="sort('country')">Country</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'card_count'" :direction="$sortDirection" wire:click="sort('card_count')">Amount</flux:table.column>
