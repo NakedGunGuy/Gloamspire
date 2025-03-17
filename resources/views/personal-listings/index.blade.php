@@ -2,7 +2,7 @@
     <x-slot name="header">
         <x-profile-nav />
     </x-slot>
-    
-    <livewire:cart-component />
+
+    <livewire:listings-component />
 
 </x-app-layout>

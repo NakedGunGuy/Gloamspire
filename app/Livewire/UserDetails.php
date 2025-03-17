@@ -4,15 +4,13 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
-use Flux\Flux;
+use Illuminate\Http\Request;
 
 class UserDetails extends Component
 {
-
     public $userId;
-    public $tab = 'listings';
 
-    public function mount($userId)
+    public function mount($userId, Request $request)
     {
         $this->userId = $userId;
     }
@@ -24,8 +22,12 @@ class UserDetails extends Component
 
     public function render()
     {
+        $section = request()->segment(3) ?? 'listings';
+
         return view('livewire.user-details', [
             'user' => $this->getUserProperty(),
+            'section' => $section,
         ])->layout('layouts.app');
     }
 }
+

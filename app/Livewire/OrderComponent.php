@@ -13,7 +13,7 @@ class OrderComponent extends Component
         $order = Order::with('order_items.listing')->find($orderId);
 
         if (!$order) {
-            session()->flash('error', 'Order not found.');
+            Flux::toast(variant: 'danger', text: "Order not found.");
             return;
         }
 
@@ -41,12 +41,12 @@ class OrderComponent extends Component
                 $item->listing->increment('card_count', $item->amount);
             }
         } else {
-            session()->flash('error', 'You are not authorized to change the status.');
+            Flux::toast(variant: 'danger', text: "You are not authorized to change the status.");
             return;
         }
 
         $order->save();
-        session()->flash('message', 'Order status updated to ' . ucfirst($newStatus) . '.');
+        Flux::toast(variant: 'success', text: "Order status updated to ' . ucfirst($newStatus) . '.");
     }
 
     public function render()

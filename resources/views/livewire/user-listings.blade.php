@@ -15,7 +15,6 @@
             @foreach ($userListings as $listing)
                 <flux:table.row 
                     :key="$listing->id"
-                    class="{{ $listing->user_id === auth()->id() ? 'opacity-50' : '' }}"
                 >
                     <flux:table.cell class="flex items-center gap-3 font-bold">
                         <flux:modal.trigger name="image-detail{{$listing->edition->id}}">

@@ -4,9 +4,9 @@
             <flux:heading size="xl">{{ __('User Details') }}</flux:heading>
         </flux:navbar>
     </x-slot>
+
     @if ($user)
     <flux:card class="flex items-start gap-4 flex-col sm:flex-row sm:items-center">
-        <!-- User Avatar -->
         @if ($user->avatar)
         <flux:avatar src="{{ $user->avatar }}" name="{{ $user->name }}" />
         @endif
@@ -15,23 +15,31 @@
             <x-country-flag :country-code="$user->country" />
         </div>
         <flux:spacer />
-        <flux:button icon="chat-bubble-oval-left-ellipsis" href="discord://discordapp.com/users/{{ $user?->discord_id }}">Contact user</flux:button>
+        <flux:button icon="chat-bubble-oval-left-ellipsis" href="discord://discordapp.com/users/{{ $user?->discord_id }}">
+            Contact user
+        </flux:button>
     </flux:card>
 
-    <flux:tab.group class="mt-4">
-        <flux:tabs wire:model="tab">
-            <flux:tab name="listings">Listings</flux:tab>
-            <flux:tab name="wishlist">Wishlist</flux:tab>
-        </flux:tabs>
+    <!-- Navigation -->
+    <flux:navbar class="mt-4">
+        <flux:navbar.item href="{{ route('user.details', ['userId' => $user->id, 'section' => 'listings']) }}" :current="$section === 'listings'">
+            Listings
+        </flux:navbar.item>
+        <flux:navbar.item href="{{ route('user.details', ['userId' => $user->id, 'section' => 'wishlist']) }}" :current="$section === 'wishlist'">
+            Wishlist
+        </flux:navbar.item>
+    </flux:navbar>
 
-        <flux:tab.panel name="listings">
-            <livewire:user-listings :userId="$userId" />
-        </flux:tab.panel>
-        <flux:tab.panel name="wishlist">
-            <livewire:wishlist-component :userId="$userId" />
-        </flux:tab.panel>
-    </flux:tab.group>
-    
+    <flux:separator />
+
+    <div class="mt-4">
+        @if ($section === 'wishlist')
+            <livewire:wishlist-component :userId="$user->id" />
+        @else
+            <livewire:user-listings :userId="$user->id" />
+        @endif
+    </div>
+
     @else
     <p>User not found.</p>
     @endif

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Order;
 use Rinvex\Country\CountryLoader;
+use Flux\Flux;
 
 class OrderDetails extends Component
 {
@@ -43,12 +44,13 @@ class OrderDetails extends Component
                 $item->listing->increment('card_count', $item->amount);
             }
         } else {
-            session()->flash('error', 'You are not authorized to change the status.');
+            Flux::toast(variant: 'danger', text: "You are not authorized to change the status.");
             return;
         }
 
         $this->order->save();
-        session()->flash('message', 'Order status updated to ' . ucfirst($newStatus) . '.');
+        
+        Flux::toast(variant: 'success', text: "Order status updated to ' . ucfirst($newStatus) . '.");
     }
 
     public function render()

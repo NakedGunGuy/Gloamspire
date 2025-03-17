@@ -9,9 +9,7 @@
     </x-slot>-->
 
     <x-slot name="header">
-        <flux:navbar scrollable>
-            <flux:heading size="xl">{{ __('User Profile') }}</flux:heading>
-        </flux:navbar>
+        <x-profile-nav />
     </x-slot>
 
     <div class="py-12">

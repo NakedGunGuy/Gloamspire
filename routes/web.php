@@ -15,21 +15,26 @@ Route::view('cards', 'cards.index')
 Route::view('users', 'users.index')
     ->name('users');
 
-Route::view('cart', 'cart.index')
+Route::view('/profile/cart', 'cart.index')
     ->middleware(['auth'])
     ->name('cart');
 
-Route::view('order', 'order.index')
+Route::view('/profile/order', 'order.index')
     ->middleware(['auth'])
     ->name('order');
 
-Route::view('wishlist', 'wishlist.index')
+Route::view('/profile/wishlist', 'wishlist.index')
     ->middleware(['auth'])
     ->name('wishlist');
 
+Route::view('/profile/listings', 'personal-listings.index')
+    ->middleware(['auth'])
+    ->name('personal-listings');
+
 Route::get('/order/{order}', \App\Livewire\OrderDetails::class)->name('order.details');
 
-Route::get('/user/{userId}', \App\Livewire\UserDetails::class)->name('user.details');
+Route::get('/user/{userId}/{section?}', \App\Livewire\UserDetails::class)
+    ->name('user.details');
 
 Route::get('/card/{cardId}', \App\Livewire\CardDetails::class)->name('card.details');
 

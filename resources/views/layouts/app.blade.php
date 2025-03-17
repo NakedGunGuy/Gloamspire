@@ -63,32 +63,46 @@
         @auth
         <flux:navmenu.separator />
 
-        <flux:navlist.item 
-            icon="shopping-cart" 
-            href="{{ route('cart') }}"
-            :current="request()->routeIs('cart')"
-            wire:navigate
-        >
-            Cart
-        </flux:navlist.item>
+        <flux:navlist.group heading="Personal" class="">
 
-        <flux:navlist.item 
-            icon="shopping-bag" 
-            href="{{ route('order') }}"
-            :current="request()->routeIs('order')"
-            wire:navigate
-        >
-            Orders
-        </flux:navlist.item>
+            <flux:navlist.item 
+                icon="building-storefront" 
+                href="{{ route('personal-listings') }}"
+                :current="request()->routeIs('personal-listings')"
+                wire:navigate
+            >
+                Listings
+            </flux:navlist.item>
 
-        <flux:navlist.item 
-            icon="heart" 
-            href="{{ route('wishlist') }}"
-            :current="request()->routeIs('wishlist')"
-            wire:navigate
-        >
-            Wishlist
-        </flux:navlist.item>
+            <flux:navlist.item 
+                icon="shopping-cart" 
+                href="{{ route('cart') }}"
+                :current="request()->routeIs('cart')"
+                wire:navigate
+            >
+                Cart
+            </flux:navlist.item>
+
+            <flux:navlist.item 
+                icon="shopping-bag" 
+                href="{{ route('order') }}"
+                :current="request()->routeIs('order')"
+                wire:navigate
+            >
+                Orders
+            </flux:navlist.item>
+
+            <flux:navlist.item 
+                icon="heart" 
+                href="{{ route('wishlist') }}"
+                :current="request()->routeIs('wishlist')"
+                wire:navigate
+            >
+                Wishlist
+            </flux:navlist.item>
+
+        </flux:navlist.group>
+
         @endauth
 
         <!--<flux:navlist.item icon="inbox" badge="12" href="#" current="{{ request()->segment(1) == 'dashboard' ? 'current' : '' }}">Inbox</flux:navlist.item>
