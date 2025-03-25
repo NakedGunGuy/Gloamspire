@@ -8,11 +8,23 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
+use Maatwebsite\Excel\Concerns\WithMapping;
 use Flux\Flux;
 
-class ListingsImport extends StringValueBinder implements ToModel, WithHeadingRow, WithCustomValueBinder
+class ListingsImport extends StringValueBinder implements ToModel, WithHeadingRow, WithCustomValueBinder, WithMapping
 {
     protected $userId;
+
+    public function map($row): array
+    {
+        return [
+            'set_prefix' => $row['Set Prefix'] ?? $row['set prefix'] ?? $row['set_prefix'] ?? null,
+            'collector_number' => $row['Collector Number'] ?? $row['collector number'] ?? $row['collector_number'] ?? null,
+            'foil' => $row['Foil'] ?? $row['foil'] ?? null,
+            'price' => $row['Price'] ?? $row['price'] ?? null,
+            'amount' => $row['Amount'] ?? $row['amount'] ?? null,
+        ];
+    }
 
     public function __construct($userId)
     {
@@ -22,8 +34,7 @@ class ListingsImport extends StringValueBinder implements ToModel, WithHeadingRo
     public function model(array $row)
     {
 
-        dd($row['set_refix']);
-        if (empty($row['set_refix'])) {
+        if (empty($row['set_prefix'])) {
             Flux::toast(variant: 'danger', text: "No row with header Set prefix");
             return null;
         }

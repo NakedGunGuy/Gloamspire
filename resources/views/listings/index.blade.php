@@ -4,7 +4,7 @@
             <flux:heading size="xl">{{ __('Listings') }}</flux:heading>
             <flux:spacer />
             @auth
-            <!-- <livewire:import-listings /> -->
+            <livewire:import-listings />
             @endauth
         </flux:navbar>
     </x-slot>
