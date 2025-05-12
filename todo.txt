@@ -1,7 +1,6 @@
 1. Make cart updates easier
     Not just removing whole items, but reducing the number.
 
-
 2. Make Stash
     Can be used instead of just listings.
 
