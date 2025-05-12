@@ -1,0 +1,16 @@
+1. Make cart updates easier
+    Not just removing whole items, but reducing the number.
+
+2. Make Stash
+    Can be used instead of just listings.
+
+    Stash can include just a list of your cards, which some of them can later be listed for sale.
+
+    User should be able to list a card directly without putting it in stash (but will automaticall be put into stash under "General" Group IG??
+
+3. Shopping wizzard
+
+4. Be able to whishlist just cards, no edition required, could be narrowed down with using filters for like wanting a foil or a specific rarity, but not the exact printing?
+
+5. image caching
+
